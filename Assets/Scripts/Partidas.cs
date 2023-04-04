@@ -1,11 +1,14 @@
 ﻿using System;
 using UnityEngine.TestTools;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Tests
 {
     public class Partidas : MonoBehaviour
     {
+        [SerializeField] private Text[] listaDePuntos;
+
         [ContextMenu("Partida")]
         public void Partida()
         {
@@ -14,6 +17,8 @@ namespace Tests
 
             int puntuacionDeTurnos = 0;
             bool strike = false;
+
+            int total = 0;
 
             for (int i = 0; i < turnos; i++)
             {
@@ -68,8 +73,11 @@ namespace Tests
                         }
                     }
                 }
+                total += puntuacionDeTurnos;
+                listaDePuntos[i].text = puntuacionDeTurnos.ToString();
                 Debug.Log(puntuacionDeTurnos);
             }
+            listaDePuntos[turnos].text = total.ToString();
         }
     }
 }
