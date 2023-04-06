@@ -25,11 +25,23 @@ namespace Tests
             //Then
             Assert.LessOrEqual(puntajePartida, 300);
         }
+
+        [Test]
+        public void TestTurno()
+        {
+            //When
+            int turno = p.Turno();
+
+            //Then
+            Assert.LessOrEqual(turno, 300);
+            Assert.GreaterOrEqual(turno, 0);
+        }
+
         [Test]
         public void TestLanzamiento()
         {
             //When
-            int cantBolos = p.Lanzamiento(10);
+            int cantBolos = p.Lanzamiento(0);
 
             //Then
             Assert.LessOrEqual(cantBolos, 10);
