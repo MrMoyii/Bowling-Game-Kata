@@ -9,14 +9,31 @@ namespace Tests
 {
     public class BowlingGame
     {
-        [Test]
-        public void BowlingGameSimplePasses()
+        Partidas p;
+
+        [SetUp] public void Setup()
         {
-            Partidas p = new Partidas();
+            p = new Partidas();
+        }
 
-            p.Partida();
+        [Test]
+        public void TestPartida()
+        {
+            //When
+            int puntajePartida = p.Partida();
 
-            Assert.IsTrue(true);
+            //Then
+            Assert.LessOrEqual(puntajePartida, 300);
+        }
+        [Test]
+        public void TestLanzamiento()
+        {
+            //When
+            int cantBolos = p.Lanzamiento(10);
+
+            //Then
+            Assert.LessOrEqual(cantBolos, 10);
+            Assert.GreaterOrEqual(cantBolos, 0);
         }
     }
 }
