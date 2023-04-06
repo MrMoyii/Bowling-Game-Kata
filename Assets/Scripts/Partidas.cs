@@ -9,6 +9,8 @@ namespace Tests
     {
         [SerializeField] private Text[] listaDePuntos;
 
+        private bool isStrike = false;
+
         [ContextMenu("Partida")]
         public void ASDASDAS()
         {
@@ -21,16 +23,25 @@ namespace Tests
         public int Partida()
         {
             int puntajePartida = 0;
+            int cantTurnos = 10;
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < cantTurnos; i++)
             {
-                //if (i == cantTurnos - 1)
-                //{
-                //    ultimoPuntajeTurno = Turno(ultimoPuntajeTurno, true);
-                //    puntajePartida += ultimoPuntajeTurno;
-                //    return puntajePartida;
-                //}
-                puntajePartida += Turno();
+                int ultimoPuntajeTurno = Turno();
+
+                if (i == cantTurnos - 1 && ultimoPuntajeTurno == 10 && isStrike) //si en el ulimo turno es trike
+                {
+                    int tiroExtra = Turno();
+                    if (isStrike)
+                    {
+                        tiroExtra += Turno();
+                    }
+                    puntajePartida = tiroExtra;
+                }
+                else
+                    puntajePartida += Turno();
+
+                puntajePartida += ultimoPuntajeTurno;
             }
             Debug.Log(puntajePartida);
             return puntajePartida;
@@ -38,14 +49,22 @@ namespace Tests
 
         public int Turno()
         {
+            isStrike = false;
             int puntaje = 0;
             int bolos = 0;
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++) // 2 = cantidad de lanzamientos por turno
             {
                 bolos = Lanzamiento(bolos);
                 puntaje += bolos;
-                if (bolos % 10 == 0 && bolos > 0) return puntaje; //Strike or Spare
+
+                if (puntaje % 10 == 0 && puntaje > 0 && i == 0)
+                {
+                    isStrike = true;
+                    return puntaje; //Strike
+                }
+                else
+                    return puntaje; //Spare
             }
             return puntaje;
         }
