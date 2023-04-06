@@ -10,74 +10,48 @@ namespace Tests
         [SerializeField] private Text[] listaDePuntos;
 
         [ContextMenu("Partida")]
-        public void Partida()
+        public void ASDASDAS()
         {
-            int turnos = 10;
-            int tiradas = 2;
-
-            int puntuacionDeTurnos = 0;
-            bool strike = false;
-
-            int total = 0;
-
-            for (int i = 0; i < turnos; i++)
+            for (int i = 0; i < 100; i++)
             {
-                if (strike)
-                {
-                    puntuacionDeTurnos = 10;
-                    strike = false;
-                }
-                else puntuacionDeTurnos = 0;
-
-                int bolosRestantes = 0;
-
-                if(i == 9)
-                {
-                    for (int j = 0; j < tiradas; j++)
-                    {
-                        puntuacionDeTurnos += UnityEngine.Random.Range(bolosRestantes, 10);
-                        bolosRestantes = puntuacionDeTurnos;
-                        //Spare
-                        if (puntuacionDeTurnos == 10)
-                        {
-                            puntuacionDeTurnos += UnityEngine.Random.Range(0, 10);
-                            break;
-                        }
-                        //Strike
-                        if (j == 0 && puntuacionDeTurnos == 10)
-                        {
-                            puntuacionDeTurnos += UnityEngine.Random.Range(0, 10);
-                            
-                            if(puntuacionDeTurnos != 10) bolosRestantes = puntuacionDeTurnos;
-
-                            puntuacionDeTurnos += UnityEngine.Random.Range(bolosRestantes, 10);
-                        }
-                    }
-                }
-                else
-                {
-                    for (int j = 0; j < tiradas; j++)
-                    {
-                        puntuacionDeTurnos += UnityEngine.Random.Range(bolosRestantes, 10);
-                        bolosRestantes = puntuacionDeTurnos;
-                        if (puntuacionDeTurnos == 10)
-                        {
-                            puntuacionDeTurnos += UnityEngine.Random.Range(0, 10);
-                            break;
-                        }
-                        if (j == 0 && puntuacionDeTurnos == 10)
-                        {
-                            //si hace "strike"
-                            strike = true;
-                            break;
-                        }
-                    }
-                }
-                total += puntuacionDeTurnos;
-                listaDePuntos[i].text = puntuacionDeTurnos.ToString();
-                Debug.Log(puntuacionDeTurnos);
+                Debug.Log(Partida());
             }
-            listaDePuntos[turnos].text = total.ToString();
+        }
+
+        public int Partida()
+        {
+            int puntajePartida = 0;
+
+            for (int i = 0; i < 10; i++)
+            {
+                //if (i == cantTurnos - 1)
+                //{
+                //    ultimoPuntajeTurno = Turno(ultimoPuntajeTurno, true);
+                //    puntajePartida += ultimoPuntajeTurno;
+                //    return puntajePartida;
+                //}
+                puntajePartida += Turno();
+            }
+            Debug.Log(puntajePartida);
+            return puntajePartida;
+        }
+
+        public int Turno()
+        {
+            int puntaje = 0;
+            int bolos = 0;
+
+            for (int i = 0; i < 2; i++)
+            {
+                bolos = Lanzamiento(bolos);
+                puntaje += bolos;
+                if (bolos % 10 == 0 && bolos > 0) return puntaje; //Strike or Spare
+            }
+            return puntaje;
+        }
+        public int Lanzamiento(int min)
+        {
+            return 10 - UnityEngine.Random.Range(min, 11);
         }
     }
 }
