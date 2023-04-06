@@ -29,7 +29,7 @@ namespace Tests
             {
                 int ultimoPuntajeTurno = Turno();
 
-                if (i == cantTurnos - 1 && ultimoPuntajeTurno == 10 && isStrike) //si en el ulimo turno es trike
+                if (i == cantTurnos - 1 && isStrike) //si en el ulimo turno es trike
                 {
                     int tiroExtra = Turno();
                     if (isStrike)
